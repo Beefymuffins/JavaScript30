@@ -38,11 +38,37 @@
   .three {
     background: coral;
   }
+  
 </style>
 
 <button></button>
 <script>
+    const divs = document.querySelectorAll('div');
+    const button = document.querySelector('button');
 
+    function logText(e) {
+      console.log(this.classList.value);
+      e.stopPropagation(); // will only log the one you click, will stop the bubbling
+    }
+
+    /* 
+    Captures going down, fires the events going up (bubbling)
+    */
+
+    divs.forEach((div) =>
+  div.addEventListener('click', logText, {
+        capture: false, // default is false
+        once: true, // willunbind itself (remove event listener) once its been clicked once
+      })
+);
+
+button.addEventListener(
+  'click',
+  () => {
+        console.log('Click!!!');
+  },
+  { once: true }
+);
 </script>
 </body>
 </html>
